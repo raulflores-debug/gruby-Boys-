@@ -47,3 +47,57 @@ nav a:hover {
     color: #f4a261;
 }
 
+
+/* Área principal de la página */
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+
+/* Secciones de contenido */
+
+main section {
+    background-color: #ffffff;
+    border: 1px solid #d5dce3;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+
+/* Títulos y textos */
+
+main h2 {
+    color: #1d3557;
+    margin-top: 0;
+}
+
+main h3 {
+    color: #457b9d;
+}
+
+main p {
+    line-height: 1.7;
+}
+
+
+/* Tarjetas de servicios y productos */
+main article {
+    background-color: #f1f3f5;
+    border-left: 4px solid #457b9d;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+main article h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+main article p {
+    margin-bottom: 0;
+}
