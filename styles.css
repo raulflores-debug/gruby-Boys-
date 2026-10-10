@@ -1,0 +1,11 @@
+
+/* Estilo general de la página */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f1f3f5;
+    color: #292f36;
+    line-height: 1.6;
+    margin: 0;
+}
+
