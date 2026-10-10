@@ -101,3 +101,57 @@ main article h3 {
 main article p {
     margin-bottom: 0;
 }
+
+
+/* Formulario de contacto */
+main form {
+    margin-top: 20px;
+}
+
+main fieldset {
+    border: 1px solid #d5dce3;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+main legend {
+    color: #1d3557;
+    font-weight: bold;
+    padding: 0 8px;
+}
+
+main label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+main input,
+main textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b8c4d1;
+    border-radius: 5px;
+    font: inherit;
+}
+
+main textarea {
+    resize: vertical;
+}
+
+main button {
+    margin-top: 18px;
+    padding: 12px 22px;
+    background-color: #1d3557;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+main button:hover {
+    background-color: #457b9d;
+}
