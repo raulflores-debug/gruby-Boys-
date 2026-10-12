@@ -177,6 +177,7 @@ footer p {
 
 
 /* Diseño para pantallas pequeñas */
+
 @media (max-width: 600px) {
     main {
         padding: 14px;
@@ -193,4 +194,75 @@ footer p {
         width: 100%;
         padding: 12px;
     }
+}
+
+/* Diseno interruptor modo claro y oscuro */
+
+
+/* Botón para cambiar el tema */
+
+#interruptor-tema {
+    padding: 10px 16px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    background-color: #f4a261;
+    color: #1d3557;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#interruptor-tema:hover {
+    opacity: 0.85;
+}
+
+/* Modo oscuro */
+
+body.modo-oscuro {
+    background-color: #171b24;
+    color: #e0e5ed;
+}
+
+body.modo-oscuro header,
+body.modo-oscuro footer {
+    background-color: #111827;
+}
+
+body.modo-oscuro main section {
+    background-color: #262d3a;
+    border-color: #3b4352;
+}
+
+body.modo-oscuro main h2,
+body.modo-oscuro main legend {
+    color: #f1f5f9;
+}
+
+body.modo-oscuro main h3 {
+    color: #93c5fd;
+}
+
+body.modo-oscuro main article {
+    background-color: #1d2430;
+    border-left-color: #60a5fa;
+}
+
+body.modo-oscuro main p,
+body.modo-oscuro main address {
+    color: #e0e5ed;
+}
+
+body.modo-oscuro main fieldset {
+    border-color: #4b5563;
+}
+
+body.modo-oscuro main input,
+body.modo-oscuro main textarea {
+    background-color: #171b24;
+    color: #ffffff;
+    border-color: #64748b;
+}
+
+body.modo-oscuro main button {
+    background-color: #457b9d;
+    color: #ffffff;
 }
