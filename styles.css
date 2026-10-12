@@ -266,3 +266,23 @@ body.modo-oscuro main button {
     background-color: #457b9d;
     color: #ffffff;
 }
+
+
+/* Botón del menú hamburguesa */
+
+#boton-menu {
+    display: none;
+    padding: 8px 12px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    background-color: #f4a261;
+    color: #1d3557;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Efecto cuando el usuario pasa el cursor */
+
+#boton-menu:hover {
+    opacity: 0.85;
+}
