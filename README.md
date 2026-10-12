@@ -22,6 +22,9 @@ Se creó el archivo styles.css y se aplicaron colores, fondos, espacios y bordes
 Se mejoró la presentación de las tarjetas de servicios y productos.
 
 Se agregó un formulario visual de contacto con campos para nombre, correo electrónico, asunto y mensaje.
+Se utilizó Flexbox para organizar los enlaces del menú de navegación.
+
+Se agregó una media query para ajustar algunos elementos en pantallas pequeñas.
 
 Se incorporó un pie de página con el símbolo de copyright, el año y el nombre del responsable.
 
