@@ -27,14 +27,16 @@ header h1 {
 /* Menú de navegación */
 
 nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 nav li {
-    display: inline-block;
-    margin-right: 16px;
+    margin: 0; 
 }
 
 nav a {
@@ -171,4 +173,24 @@ footer {
 footer p {
     margin: 0;
     font-size: 14px;
+}
+
+
+/* Diseño para pantallas pequeñas */
+@media (max-width: 600px) {
+    main {
+        padding: 14px;
+    }
+
+    main section {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 16px;
+    }
+
+    main article {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+    }
 }
