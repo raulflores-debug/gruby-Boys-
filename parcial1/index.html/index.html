@@ -41,6 +41,61 @@
                     <p class="precio">Bs 15</p>
                 </article>
 
+                 <article class="servicio">
+                    <h3>Planchado de camisa</h3>
+                    <p>Dejamos tus camisas bien presentadas y sin arrugas.</p>
+                    <p class="precio">Bs 8</p>
+                </article>
+
+                <article class="servicio">
+                    <h3>Lavado de edredón</h3>
+                    <p>Limpiamos tus edredones para mantenerlos frescos y agradables.</p>
+                    <p class="precio">Bs 35</p>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2>Confirma tu encargo</h2>
+            <p>Completa tus datos para registrar tu solicitud.</p>
+
+            <form id="formulario-encargo">
+
+                <label for="nombre">Nombre completo:</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Escribe tu nombre completo"
+                    required>
+
+                <label for="correo">Correo electrónico:</label>
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="ejemplo@correo.com"
+                    required>
+
+                <label for="encargo">Detalle de tu encargo:</label>
+                <textarea
+                    id="encargo"
+                    name="encargo"
+                    rows="4"
+                    placeholder="Indica qué prendas necesitas lavar o planchar"
+                    required></textarea>
+
+                <button type="button" id="confirmar">
+                    Confirmar encargo
+                </button>
+
+            </form>
+
+            <p id="mensaje" class="oculto"
+                role="status" aria-live="polite"></p>
+        </section>
+
     </main>
 
 </body>
