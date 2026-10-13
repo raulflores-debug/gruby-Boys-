@@ -1,8 +1,5 @@
 console.log("JavaScript está funcionando");
 
-
-console.log("JavaScript está funcionando");
-
 // Buscar el botón en el HTML
 const botonTema = document.getElementById("interruptor-tema");
 
