@@ -70,3 +70,145 @@ h2 {
 section > p {
     text-align: center;
 }
+
+/* Servicios */
+.servicios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.servicio {
+    background-color: white;
+    border: 1px solid #c9e2ed;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1 1 240px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.servicio h3 {
+    color: #087eae;
+}
+
+.precio {
+    color: #087eae;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Formulario */
+form {
+    background-color: white;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #aabac4;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: 2px solid #72c7e8;
+    border-color: #087eae;
+}
+
+/* Botón */
+button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    background-color: #087eae;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #075b7c;
+}
+
+/* Confirmación */
+.oculto {
+    display: none;
+}
+
+#mensaje {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #d9f4e3;
+    color: #155c35;
+    border: 1px solid #85c99e;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Pie de página */
+footer {
+    background-color: #173747;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 5px;
+}
+
+/* Diseño para celulares */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    main {
+        width: 92%;
+    }
+
+    .servicios {
+        flex-direction: column;
+    }
+
+    .servicio {
+        flex-basis: auto;
+    }
+
+    form {
+        padding: 18px;
+    }
+}
