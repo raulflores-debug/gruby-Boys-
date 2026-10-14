@@ -160,6 +160,30 @@ main button:hover {
     background-color: #457b9d;
 }
 
+
+/* Mensajes de validación del formulario */
+.aviso {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Mensaje cuando hay un error */
+.aviso.error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+/* Mensaje cuando el envío es correcto */
+.aviso.exito {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+
 /* Pie de página */
 
 footer {
