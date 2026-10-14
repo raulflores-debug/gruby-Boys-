@@ -54,7 +54,8 @@ botonMenu.addEventListener("click", function () {
 
 });
 
-// Buscamos el formulario y el aviso
+
+ // Buscamos el formulario y el aviso
 const formulario = document.getElementById("form-contacto");
 const aviso = document.getElementById("aviso-contacto");
 
@@ -74,9 +75,16 @@ formulario.addEventListener("submit", function (evento) {
     aviso.textContent = "";
     aviso.className = "aviso";
 
-    // Si falta algún dato, mostramos un aviso
-    if (nombre === "" || correo === "" || asunto === "" || mensaje === "") {
-        aviso.textContent = "¡Casero, te faltó completar algún campito! Revísalo, por favor.";
+    // Revisamos si falta el nombre
+    if (nombre === "") {
+        aviso.textContent = "¡Casero, no te olvides de escribir tu nombre completo para identificar tu consulta!";
+        aviso.classList.add("error");
+        return;
+    }
+
+    // Revisamos si falta el correo
+    if (correo === "") {
+        aviso.textContent = "¡Caserito, necesitamos tu correo electrónico para poder contactarte!";
         aviso.classList.add("error");
         return;
     }
@@ -85,13 +93,28 @@ formulario.addEventListener("submit", function (evento) {
     const formatoCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formatoCorreo.test(correo)) {
-        aviso.textContent = "¡Casero, revisa tu correo! Parece que hay un error.";
+        aviso.textContent = "¡Casero, revisa tu correo! Debe tener un formato válido, por ejemplo: usuario@correo.com.";
+        aviso.classList.add("error");
+        return;
+    }
+
+    // Revisamos si falta el asunto
+    if (asunto === "") {
+        aviso.textContent = "¡Caserito, cuéntanos de qué trata tu consulta escribiendo un asunto!";
+        aviso.classList.add("error");
+        return;
+    }
+
+    // Revisamos si falta el mensaje
+    if (mensaje === "") {
+        aviso.textContent = "¡Casero, nos falta conocer tu consulta! Escribe tu mensaje antes de continuar.";
         aviso.classList.add("error");
         return;
     }
 
     // Si todo está bien, mostramos este mensaje
-    aviso.textContent = "¡Listo, caserito! Todo está en orden. ¡Gracias por escribirnos!";
+    aviso.textContent = "¡Excelente, caserito! Completaste todos los campos correctamente. ¡Gracias por contactarte con nosotros!";
     aviso.classList.add("exito");
 
 });
+   
