@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salteñería El Horno</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Salteñería El Horno</h1>
+        <p>En nuestra salteñería preparamos salteñas para compartir en familia o con amigos. Realiza tu pedido llenando el siguiente formulario.</p>
+    </header>
+
+    <main>
+        <form id="form-horno" novalidate method="POST" action="procesar.php">
+
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="pedido">¿Qué salteñas querés?</label>
+            <textarea id="pedido" name="pedido"></textarea>
+
+            <button type="submit">Hacer mi pedido</button>
+
+            <p id="aviso-horno" class="aviso"></p>
+
+        </form>
+    </main>
+
+    <footer>
+        <p>Parcial 2 - Raúl Flores Poma - 20 de octubre de 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
