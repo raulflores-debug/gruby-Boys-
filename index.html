@@ -129,7 +129,7 @@
     <p>Comunícate con nosotros para solicitar información sobre nuestros servicios y productos.</p>
 
      
-<form id="form-contacto" novalidate>
+<form id="form-contacto" action="procesar.php" method="POST" novalidate>
     <fieldset>
         <legend>Envíanos tu consulta</legend>
 
@@ -138,6 +138,17 @@
 
         <label for="correo">Correo electrónico:</label>
         <input type="email" id="correo" name="correo" required>
+
+        <label for="telefono">Número telefónico:</label>
+        <input
+         type="tel"
+         id="telefono"
+         name="telefono"
+         placeholder="Ej. 71234567"
+         pattern="[0-9]{8}"
+         title="Ingresa un número de 8 dígitos"
+         required
+         >
 
         <label for="asunto">Asunto:</label>
         <input type="text" id="asunto" name="asunto" required>

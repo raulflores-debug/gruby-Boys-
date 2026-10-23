@@ -68,6 +68,7 @@ formulario.addEventListener("submit", function (evento) {
     // Guardamos lo que escribimos en los campos
     const nombre = document.getElementById("nombre").value.trim();
     const correo = document.getElementById("correo").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
     const asunto = document.getElementById("asunto").value.trim();
     const mensaje = document.getElementById("mensaje").value.trim();
 
@@ -98,6 +99,23 @@ formulario.addEventListener("submit", function (evento) {
         return;
     }
 
+    // Revisamos si falta el teléfono
+    if (telefono === "") {
+        aviso.textContent = "¡Caserito, déjanos tu número telefónico para poder contactarte!";
+        aviso.classList.add("error");
+        return;
+    }
+
+    // Comprobamos que tenga 8 dígitos
+    const formatoTelefono = /^[0-9]{8}$/;
+
+    if (!formatoTelefono.test(telefono)) {
+        aviso.textContent = "¡Casero, el teléfono debe tener exactamente 8 dígitos!";
+        aviso.classList.add("error");
+        return;
+    }
+
+
     // Revisamos si falta el asunto
     if (asunto === "") {
         aviso.textContent = "¡Caserito, cuéntanos de qué trata tu consulta escribiendo un asunto!";
@@ -112,9 +130,10 @@ formulario.addEventListener("submit", function (evento) {
         return;
     }
 
-    // Si todo está bien, mostramos este mensaje
-    aviso.textContent = "¡Excelente, caserito! Completaste todos los campos correctamente. ¡Gracias por contactarte con nosotros!";
+    // Si todo está correcto, enviamos los datos a PHP
+    aviso.textContent = "¡Excelente, caserito! Completaste todos los campos correctamente. ¡Gracias por contactarte con nosotros! Estamos enviando tu consulta...";
     aviso.classList.add("exito");
 
+    formulario.submit();
+
 });
-   
