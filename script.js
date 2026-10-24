@@ -60,12 +60,10 @@ const formulario = document.getElementById("form-contacto");
 const aviso = document.getElementById("aviso-contacto");
 
 // Cuando hacemos clic en Enviar, revisamos los datos
-formulario.addEventListener("submit", function (evento) {
+if (formulario && aviso) {
+    formulario.addEventListener("submit", function (evento) {
 
-    // Hacemos que la página no se recargue
-    evento.preventDefault();
-
-    // Guardamos lo que escribimos en los campos
+// Guardamos lo que escribimos en los campos
     const nombre = document.getElementById("nombre").value.trim();
     const correo = document.getElementById("correo").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
@@ -137,3 +135,5 @@ formulario.addEventListener("submit", function (evento) {
     formulario.submit();
 
 });
+
+}
