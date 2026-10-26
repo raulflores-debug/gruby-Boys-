@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metal Mecánica</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+     <header>
+        <h1>Metal Mecánica</h1>
+
+ <button type="button" id="interruptor-tema" aria-pressed="false">
+        🌙 Activar modo oscuro
+    </button>
+
+    <button type="button" id="boton-menu"
+        aria-label="Abrir menú"
+        aria-expanded="false">
+    ☰
+</button>
+
+         <nav>
+             <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+             </ul>
+         </nav>
+    </header>
+
+        <main>
+
+        <section id="inicio">
+        <h2>Soluciones Metal mecánicas</h2>
+        <p>Fabricación, mantenimiento y soluciones para la industria.</p>
+        </section>
+
+        <section id="nosotros">
+        <h2>Nosotros</h2>
+        <p>Somos un emprendimiento dedicado a la fabricación y mantenimiento de estructuras y equipos metalmecánicos.</p>
+        </section>
+
+        <section id="servicios">
+    <h2>Servicios</h2>
+    <p>Ofrecemos servicios de fabricación, mantenimiento y reparación de equipos y estructuras metalmecánicas.</p>
+
+ <article>
+        <h3>Fabricación</h3>
+        <p>Elaboramos estructuras y piezas metálicas según los requerimientos de cada cliente.</p>
+    </article>
+
+    <article>
+        <h3>Mantenimiento</h3>
+        <p>Realizamos trabajos para conservar los equipos y estructuras en buenas condiciones.</p>
+    </article>
+
+    <article>
+        <h3>Reparación</h3>
+        <p>Restauramos componentes dañados para facilitar su funcionamiento.</p>
+    </article>
+
+</section>
+
+<section id="productos">
+    <h2>Productos</h2>
+    <p>Contamos con productos y soluciones metalmecánicas elaboradas según las necesidades de nuestros clientes.</p>
+
+    <article>
+        <h3>Estructuras metálicas</h3>
+        <p>Fabricamos soportes, marcos, coches manaules de carga y otras estructuras destinadas a diferentes proyectos.</p>
+    </article>
+
+    <article>
+        <h3>Piezas metálicas</h3>
+        <p>Preparamos componentes de metal de acuerdo con las medidas y características solicitadas.</p>
+    </article>
+
+</section>
+
+<section id="galeria">
+            <h2>Galería</h2>
+            <p>En esta sección se mostrarán algunos de nuestros trabajos metalmecánicos.</p>
+
+             <div class="galeria-contenedor">
+
+        <article class="foto-trabajo">
+            <img src="img/tinglado.jpg" alt="Construcción de un tinglado">
+            <h3>Tinglados</h3>
+        </article>
+
+        <article class="foto-trabajo">
+            <img src="img/soldando.jpg" alt="Trabajo de soldadura">
+            <h3>Soldadura</h3>
+        </article>
+
+        <article class="foto-trabajo">
+            <img src="img/garage.jpg" alt="Trabajo de construcción de un garaje">
+            <h3>Garajes</h3>
+        </article>
+
+        <article class="foto-trabajo">
+            <img src="img/escaleras.jpg" alt="Fabricación de escaleras metálicas">
+            <h3>Escaleras metálicas</h3>
+        </article>
+
+        <article class="foto-trabajo">
+            <img src="img/carritos.jpg" alt="Fabricación de carritos metálicos">
+            <h3>Carritos metálicos</h3>
+        </article>
+
+        <article class="foto-trabajo">
+            <img src="img/burritos.jpg" alt="Trabajo metalmecánico de burritos">
+            <h3>Burritos</h3>
+        </article>
+
+    </div>
+        
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <p>Comunícate con nosotros para solicitar información sobre nuestros servicios y productos.</p>
+
+     
+<form id="form-contacto" action="procesar.php" method="POST">
+    <fieldset>
+        <legend>Envíanos tu consulta</legend>
+
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <label for="telefono">Número telefónico:</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="Ej. 71234567" pattern="[0-9]{8}"
+         title="Ingresa un número de 8 dígitos"
+         required>
+
+        <label for="asunto">Asunto:</label>
+        <input type="text" id="asunto" name="asunto" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+        <button type="submit">Enviar consulta</button>
+        <p id="aviso-contacto" class="aviso"></p>
+    </fieldset>
+</form>
+
+
+     <address>
+            <p>Responsable: Raúl Flores Poma</p>
+            <p>celular: 79686081</p>
+            <p>Correo electrónico: raulflores.@uab.edu.bo</p>
+        </address>
+
+
+</section>
+
+        </main>
+        
+
+         <footer>
+        <p>© 2026 Raul flores poma | Metalmecánica. Todos los derechos reservados.</p>
+    </footer>
+    
+     <script src="script.js"></script>
+    
+</body>
+
+</html>
