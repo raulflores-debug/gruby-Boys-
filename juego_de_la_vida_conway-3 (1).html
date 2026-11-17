@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juego de la Vida de Conway</title>
+<style>
+:root{font-family:Arial,sans-serif;color:#172033;background:#f3f6fb}
+*{box-sizing:border-box}
+body{margin:0;padding:14px}
+main{max-width:980px;margin:auto}
+h1{font-size:1.55rem;margin:8px 0}
+h2{font-size:1.12rem;margin:0 0 10px}
+p{line-height:1.45}
+.panel{background:white;border:1px solid #dce3ee;border-radius:13px;padding:14px;margin:12px 0;box-shadow:0 2px 8px #15294b0b}
+.controls{display:flex;flex-wrap:wrap;gap:8px}
+button,select{font-size: .95rem;border:1px solid #cbd5e1;border-radius:9px;padding:10px 12px;background:#fff;color:#172033}
+button{cursor:pointer}
+button.primary{background:#176b45;color:white;border-color:#176b45}
+button:active{transform:scale(.98)}
+small,.muted{color:#596579}
+.stats{display:flex;gap:18px;flex-wrap:wrap;font-weight:bold}
+.grid-wrap{overflow:auto;max-width:100%;padding:5px 0}
+#grid{display:grid;grid-template-columns:repeat(30,minmax(10px,1fr));gap:2px;min-width:300px;max-width:720px;margin:auto;touch-action:manipulation}
+.cell{aspect-ratio:1;border:0;border-radius:2px;background:#e6ebf2;padding:0;min-width:0;min-height:0}
+.cell.alive{background:#16834f}
+.legend{display:flex;gap:15px;font-size:.9rem;align-items:center}
+.dot{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:5px}
+canvas{width:100%;height:190px;border:1px solid #e0e6ef;border-radius:8px}
+.note{background:#fff8df;border-left:4px solid #e2aa27;padding:10px;border-radius:7px}
+.result{padding:9px;background:#f0f5fa;border-radius:8px;margin-top:8px;overflow-wrap:anywhere}
+footer{font-size:.85rem;color:#667085;text-align:center;padding:10px}
+@media(min-width:700px){body{padding:24px}h1{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<main>
+<header class="panel">
+<h1>Juego de la Vida de Conway</h1>
+<p>Simulación de autómatas celulares. Cada celda está viva o muerta y cambia según el estado de sus ocho vecinas.</p>
+<div class="stats">
+<span>Generación: <strong id="generation">0</strong></span>
+<span>Células vivas: <strong id="aliveCount">0</strong></span>
+</div>
+</header>
+
+<section class="panel">
+<h2>1. Elige una figura inicial</h2>
+<div class="controls">
+<button data-pattern="block">Bloque</button>
+<button data-pattern="blinker">Blinker</button>
+<button data-pattern="glider">Glider</button>
+<button data-pattern="rpentomino">R-pentomino</button>
+<button id="clear">Limpiar cuadrícula</button>
+</div>
+<p class="muted">También puedes tocar las celdas para encenderlas o apagarlas manualmente.</p>
+<div class="grid-wrap"><div id="grid" aria-label="Cuadrícula de células"></div></div>
+<div class="legend"><span><i class="dot" style="background:#16834f"></i>Viva</span><span><i class="dot" style="background:#e6ebf2"></i>Muerta</span></div>
+</section>
+
+<section class="panel">
+<h2>2. Controla la simulación</h2>
+<div class="controls">
+<button class="primary" id="step">Siguiente turno</button>
+<button id="run">Iniciar</button>
+<button id="pause">Pausar</button>
+<button id="reset">Volver al turno 0</button>
+<label>Velocidad:
+<select id="speed"><option value="900">Lenta</option><option value="450" selected>Normal</option><option value="160">Rápida</option></select>
+</label>
+</div>
+<p class="note">Reglas: una célula viva con 0 o 1 vecinas vivas muere; con 2 o 3 sobrevive; con 4 o más muere. Una célula muerta nace si tiene exactamente 3 vecinas vivas.</p>
+</section>
+
+<section class="panel">
+<h2>3. Reto B: densidad inicial aleatoria</h2>
+<p>Llena la cuadrícula con el porcentaje indicado de células vivas y observa qué ocurre.</p>
+<div class="controls">
+<button data-density="10">10%</button>
+<button data-density="30">30%</button>
+<button data-density="60">60%</button>
+</div>
+<p class="muted">Después de elegir el porcentaje, pulsa «Iniciar» o «Siguiente turno».</p>
+</section>
+
+<section class="panel">
+<h2>4. Gráfica de células vivas</h2>
+<p class="muted">La gráfica registra cuántas células vivas hay en cada generación.</p>
+<canvas id="chart" width="900" height="230"></canvas>
+</section>
+
+<section class="panel">
+<h2>5. Reto C: ¿un cambio pequeño importa?</h2>
+<p>Primero coloca una figura o crea una configuración manual. Guarda el estado inicial y luego se compararán dos simulaciones durante 50 turnos: una original y otra con una sola celda cambiada.</p>
+<div class="controls">
+<button id="saveBase">Guardar estado base</button>
+<button id="compare">Comparar cambio de 1 celda (50 turnos)</button>
+</div>
+<div id="compareResult" class="result">Todavía no se ha realizado la comparación.</div>
+</section>
+
+<section class="panel">
+<h2>6. Ayuda para revisar el código</h2>
+<p><strong>¿Dónde se cuentan las vecinas?</strong> En la función <code>contarVecinas()</code>. Esta revisa las ocho posiciones alrededor de una celda y suma las que están vivas.</p>
+<p><strong>¿Por qué se usa una copia?</strong> En <code>siguienteGeneracion()</code> se conserva el tablero anterior y se calcula un tablero nuevo. Así, todas las células se actualizan usando la misma generación anterior, sin que una actualización afecte el cálculo de otra.</p>
+<p><strong>Prueba de actualización incorrecta:</strong> para experimentar con el error, en el código busca <code>const anterior = copiarTablero(tablero);</code>. Si se reemplaza por una referencia al mismo tablero y se modifican sus celdas mientras todavía se cuentan vecinas, los cálculos posteriores pueden usar valores ya modificados. Por eso el resultado deja de corresponder a una generación simultánea.</p>
+</section>
+
+<footer>Trabajo de Simulación y Dinámica de Sistemas · Juego de la Vida de Conway</footer>
+</main>
+<script>
+const FILAS=16, COLUMNAS=30;
+let tablero=crearVacio(), inicial=null, generacion=0, historial=[], temporizador=null, estadoBase=null;
+const grid=document.getElementById('grid');
+const generationEl=document.getElementById('generation');
+const aliveEl=document.getElementById('aliveCount');
+const chart=document.getElementById('chart');
+const ctx=chart.getContext('2d');
+
+function crearVacio(){return Array.from({length:FILAS},()=>Array(COLUMNAS).fill(0));}
+function copiarTablero(t){return t.map(f=>f.slice());}
+function contarVivas(t){return t.reduce((s,f)=>s+f.reduce((a,v)=>a+v,0),0);}
+function dibujar(){
+ grid.innerHTML='';
+ for(let r=0;r<FILAS;r++) for(let c=0;c<COLUMNAS;c++){
+  const b=document.createElement('button');
+  b.className='cell'+(tablero[r][c]?' alive':'');
+  b.setAttribute('aria-label',`Fila ${r+1}, columna ${c+1}, ${tablero[r][c]?'viva':'muerta'}`);
+  b.addEventListener('click',()=>{pausar();tablero[r][c]=tablero[r][c]?0:1;inicial=copiarTablero(tablero);generacion=0;historial=[contarVivas(tablero)];actualizar();});
+  grid.appendChild(b);
+ }
+ actualizar();
+}
+function actualizar(){
+ generationEl.textContent=generacion;
+ aliveEl.textContent=contarVivas(tablero);
+ dibujarGrafica();
+}
+function contarVecinas(t,r,c){
+ let total=0;
+ for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+  if(dr===0&&dc===0) continue;
+  const nr=r+dr,nc=c+dc;
+  if(nr>=0&&nr<FILAS&&nc>=0&&nc<COLUMNAS) total+=t[nr][nc];
+ }
+ return total;
+}
+function siguienteGeneracion(){
+ // Se copia el tablero anterior: todas las celdas se calculan con la misma generación.
+ const anterior=copiarTablero(tablero);
+ const nuevo=crearVacio();
+ for(let r=0;r<FILAS;r++) for(let c=0;c<COLUMNAS;c++){
+  const vecinas=contarVecinas(anterior,r,c);
+  if(anterior[r][c]===1){
+   nuevo[r][c]=(vecinas===2||vecinas===3)?1:0;
+  }else{
+   nuevo[r][c]=(vecinas===3)?1:0;
+  }
+ }
+ tablero=nuevo;
+ generacion++;
+ historial.push(contarVivas(tablero));
+ dibujar();
+}
+function pausar(){if(temporizador){clearInterval(temporizador);temporizador=null;}}
+function iniciar(){if(temporizador)return;temporizador=setInterval(siguienteGeneracion,Number(document.getElementById('speed').value));}
+function cargarPatron(nombre){
+ pausar();tablero=crearVacio();
+ const patrones={
+  block:[[0,0],[0,1],[1,0],[1,1]],
+  blinker:[[0,0],[0,1],[0,2]],
+  glider:[[0,1],[1,2],[2,0],[2,1],[2,2]],
+  rpentomino:[[0,1],[0,2],[1,0],[1,1],[2,1]]
+ };
+ const p=patrones[nombre], r0=Math.floor(FILAS/2)-1,c0=Math.floor(COLUMNAS/2)-1;
+ p.forEach(([r,c])=>tablero[r0+r][c0+c]=1);
+ reiniciarContadores();
+}
+function reiniciarContadores(){generacion=0;inicial=copiarTablero(tablero);historial=[contarVivas(tablero)];dibujar();}
+function aleatorio(porcentaje){
+ pausar();tablero=crearVacio();
+ for(let r=0;r<FILAS;r++)for(let c=0;c<COLUMNAS;c++)tablero[r][c]=Math.random()*100<porcentaje?1:0;
+ reiniciarContadores();
+}
+function dibujarGrafica(){
+ const w=chart.width,h=chart.height,pad=35;
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle='#d5dce7';ctx.lineWidth=1;
+ ctx.beginPath();ctx.moveTo(pad,12);ctx.lineTo(pad,h-pad+3);ctx.lineTo(w-10,h-pad+3);ctx.stroke();
+ if(historial.length===0)return;
+ const max=Math.max(5,...historial), xStep=(w-pad-15)/Math.max(1,historial.length-1);
+ ctx.strokeStyle='#16834f';ctx.lineWidth=3;ctx.beginPath();
+ historial.forEach((v,i)=>{const x=pad+i*xStep,y=h-pad-(v/max)*(h-pad-25);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+ ctx.stroke();ctx.fillStyle='#596579';ctx.font='13px Arial';
+ ctx.fillText('Células vivas',pad,14);ctx.fillText('Turnos: '+(historial.length-1),w-125,h-8);
+}
+function evolucionar(t,n){
+ let actual=copiarTablero(t);
+ for(let k=0;k<n;k++){
+  const nuevo=crearVacio();
+  for(let r=0;r<FILAS;r++)for(let c=0;c<COLUMNAS;c++){
+   const v=contarVecinas(actual,r,c);
+   nuevo[r][c]=actual[r][c]?(v===2||v===3?1:0):(v===3?1:0);
+  }
+  actual=nuevo;
+ }
+ return actual;
+}
+document.querySelectorAll('[data-pattern]').forEach(b=>b.addEventListener('click',()=>cargarPatron(b.dataset.pattern)));
+document.querySelectorAll('[data-density]').forEach(b=>b.addEventListener('click',()=>aleatorio(Number(b.dataset.density))));
+document.getElementById('clear').addEventListener('click',()=>{pausar();tablero=crearVacio();reiniciarContadores();});
+document.getElementById('step').addEventListener('click',()=>{pausar();siguienteGeneracion();});
+document.getElementById('run').addEventListener('click',iniciar);
+document.getElementById('pause').addEventListener('click',pausar);
+document.getElementById('reset').addEventListener('click',()=>{pausar();if(inicial)tablero=copiarTablero(inicial);generacion=0;historial=[contarVivas(tablero)];dibujar();});
+document.getElementById('speed').addEventListener('change',()=>{if(temporizador){pausar();iniciar();}});
+document.getElementById('saveBase').addEventListener('click',()=>{estadoBase=copiarTablero(tablero);document.getElementById('compareResult').textContent='Estado base guardado con '+contarVivas(estadoBase)+' células vivas.';});
+document.getElementById('compare').addEventListener('click',()=>{
+ const out=document.getElementById('compareResult');
+ if(!estadoBase){out.textContent='Primero pulsa «Guardar estado base».';return;}
+ let base=copiarTablero(estadoBase), mod=copiarTablero(estadoBase);
+ let r=Math.floor(FILAS/2),c=Math.floor(COLUMNAS/2);
+ // Encuentra una celda para cambiar sin alterar el tablero base.
+ mod[r][c]=mod[r][c]?0:1;
+ const finalBase=evolucionar(base,50),finalMod=evolucionar(mod,50);
+ let diferentes=0;
+ for(let i=0;i<FILAS;i++)for(let j=0;j<COLUMNAS;j++)if(finalBase[i][j]!==finalMod[i][j])diferentes++;
+ out.textContent=`Después de 50 turnos: simulación original = ${contarVivas(finalBase)} células vivas; simulación con una celda cambiada = ${contarVivas(finalMod)} células vivas. Celdas distintas entre los dos resultados: ${diferentes} de ${FILAS*COLUMNAS}.`;
+});
+reiniciarContadores();
+</script>
+</body>
+</html>
